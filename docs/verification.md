@@ -1,5 +1,13 @@
 # 採用UI・認証・同期・復元の検証記録
 
+## 2026-09-13 本番デプロイ
+
+- 本人の明示承認後に実施。Git 4379f2eのアプリを再ビルドし、Cloudflare Workersへ配置。Version ID: 2e313ecc-8bbb-4d95-b558-c4908d48b6ba。本番URL: https://assessment-tracker.t-kasuya-354582.workers.dev/ 。プレビューURLは無効、有料契約・課金変更なし。
+- 配置直前の実D1は_cf_KVだけ、アプリデータなし（読取changes 0）。`/Users/takahiro/Developer/assessment-tracker-recovery/production-before-deploy-20260913/` にSQLとSHA-256 manifestを取得後、0001_workspace.sqlの5コマンド適用成功。これは同じMac上のバックアップであり、端末から独立した保管や日次運用ではない。
+- 本番トップと設定APIが200、Firebaseプロジェクト一致・configured true・emulator false。未認証のworkspace/history APIは401、署名なしトークンも401。本番ログイン画面をブラウザで確認。
+- Firebaseの公開設定読取は200。ただし本番ホストはauthorizedDomainsに未登録。Firebase CLI未ログインのため更新不可。実ユーザー登録／メール・Google認証／認証付きD1保存／実機間同期は未確認。デプロイ成功と認証後の利用検証完了は区別する。
+- 直前の実装版は自動40件と型・lint・build成功済み。この配置ではアプリソースは変更せず、再build成功と本番疎通確認を行った。秘密値・本番設定・バックアップはGitに含めない。
+
 ## 2026-09-13 最終仕上げ
 
 - 最新チェックは単体18・統合10・クライアント12の計40件、typecheck、lint、buildが成功。科目後付けの受理時のみ終了・拒否時の文字保持・保存待ち中の送信抑止を追加試験した。初回lintのoptionラベル指摘を修正し、全6コマンドを再実行済み。

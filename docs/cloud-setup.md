@@ -1,4 +1,14 @@
-# 実クラウドへの接続手順（CLI認証・実D1読取確認済み／公開範囲の判断待ち）
+# 実クラウドへの接続手順
+
+## 2026-09-13 本番配置済み（最新）
+
+本人のデプロイ承認後、実D1の空状態を再確認し、SQLバックアップ→0001マイグレーション→Workersデプロイを実施した。本番は https://assessment-tracker.t-kasuya-354582.workers.dev/ 。workers_devを有効化し、preview_urlsは無効のまま。Firebase認証はデータを保護するが、入口とアカウント登録画面は公開される。Cloudflare Accessによる限定公開は設定していない。有料プラン・課金設定は変更していない。
+
+### 所有者に残る設定
+
+Firebase Console → Authentication → Settings → Authorized domains → Add domain に `assessment-tracker.t-kasuya-354582.workers.dev` を追加する（https://や末尾スラッシュなし）。読取APIで現時点では未登録を確認。Firebase CLIは未認証のため、管理設定の更新は行っていない。追加後に本番のメール／Googleログイン、保存、再読み込み、別端末同期を確認する。パスワードやトークンをチャットへ貼らない。
+
+以下は配置前の準備手順と履歴。公開承認・migration・デプロイの待ち状態は上記で更新された。
 
 この手順はアカウント所有者が必要な作業を具体化したもの。ローカル実装・検証は完了後もそのまま使える。現在のURLはlocalhostであり、実際のPC／スマホ間のクラウド同期は、下記接続と非公開テスト用の到達可能なURLが必要。
 
