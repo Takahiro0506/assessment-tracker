@@ -26,6 +26,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { DateField } from './date-field';
+import { UnitField } from './unit-field';
 import { QuickAdd, SavedFeedback } from './quick-add';
 import {
   nextAssessment,
@@ -380,6 +381,8 @@ function CardView({
   onRecordResult,
   onSetUnit,
   onSetDue,
+  onSubmit,
+  units,
   disabled,
   today,
 }: {
@@ -390,8 +393,10 @@ function CardView({
   onChange: (c: Card) => void;
   onHistory: () => void;
   onRecordResult: () => void;
-  onSetUnit: () => void;
-  onSetDue: (due: string | null) => void;
+  onSetUnit: (name: string) => boolean;
+  onSetDue: (due: string | null) => boolean;
+  onSubmit: () => void;
+  units: string[];
   disabled: boolean;
 }) {
   const c = card;
@@ -408,9 +413,7 @@ function CardView({
           {c.unit !== UNASSIGNED_UNIT ? (
             <span className="unit-chip">{c.unit}</span>
           ) : (
-            <button className="card-add-field" onClick={onSetUnit}>
-              + Unit
-            </button>
+            <UnitField units={units} disabled={disabled} onChange={onSetUnit} />
           )}
         </div>
         <button
@@ -448,7 +451,12 @@ function CardView({
             {formatDate(c.due)}
           </>
         ) : (
-          <DateField value={null} emptyLabel="+ Due date" onChange={onSetDue} />
+          <DateField
+            value={null}
+            emptyLabel="+ Due date"
+            disabled={disabled}
+            onChange={onSetDue}
+          />
         )}
       </div>
       {c.status === 'work' && c.due && c.due <= today && !c.deletedAt && (
@@ -470,24 +478,28 @@ function CardView({
           <i />
           Added<small>{recordedDate(c.history[0].at)}</small>
         </span>
-        <span className={`record-step ${c.submittedAt ? 'done-step' : ''}`}>
-          <i />
-          Submitted
-          <small>{c.submittedAt ? recordedDate(c.submittedAt) : '—'}</small>
-        </span>
-        <span
-          className={`record-step ${c.status === 'done' ? 'done-step' : ''}`}
-        >
-          <i />
-          Result
-          <small>
-            {c.status === 'done'
-              ? 'Recorded'
-              : c.status === 'waiting'
-                ? 'Waiting'
-                : '—'}
-          </small>
-        </span>
+        {(c.submittedAt || c.attempt > 1) && (
+          <>
+            <span className={`record-step ${c.submittedAt ? 'done-step' : ''}`}>
+              <i />
+              Submitted
+              <small>{c.submittedAt ? recordedDate(c.submittedAt) : '—'}</small>
+            </span>
+            <span
+              className={`record-step ${c.status === 'done' ? 'done-step' : ''}`}
+            >
+              <i />
+              Result
+              <small>
+                {c.status === 'done'
+                  ? 'Recorded'
+                  : c.status === 'waiting'
+                    ? 'Waiting'
+                    : '—'}
+              </small>
+            </span>
+          </>
+        )}
       </div>
       {c.attempt > 1 && (
         <p className="previous-record">
@@ -510,12 +522,7 @@ function CardView({
             Restore card
           </button>
         ) : c.status === 'work' ? (
-          <button
-            disabled={disabled}
-            onClick={() =>
-              onChange({ ...submit(c), unitId: c.unitId, deletedAt: null })
-            }
-          >
+          <button disabled={disabled} onClick={onSubmit}>
             Mark submitted
           </button>
         ) : c.status === 'waiting' ? (
@@ -572,12 +579,14 @@ export function Semester({
     'semester',
   );
   const [unit, setUnit] = useState('all');
+  const [showUnits, setShowUnits] = useState(false);
   const [view, setView] = useState<'date' | 'unit'>('date');
   const [building, setBuilding] = useState(false);
   const [edit, setEdit] = useState<Card | null>(null);
   const [history, setHistory] = useState<Card | null>(null);
   const [reassessment, setReassessment] = useState<Card | null>(null);
   const [resultCard, setResultCard] = useState<Card | null>(null);
+  const [submitCard, setSubmitCard] = useState<Card | null>(null);
   const [newDue, setNewDue] = useState<string | null>(null);
   const [recovery, setRecovery] = useState(false);
   const [settings, setSettings] = useState(false);
@@ -613,6 +622,7 @@ export function Semester({
     (c) => c.deletedAt && (unit === 'all' || c.unitId === unit),
   );
   function save(v: Workspace) {
+    if (blocked) return false;
     setPreview(null);
     const ok = commit(v);
     if (ok) setMessage('');
@@ -634,7 +644,30 @@ export function Semester({
         today={today}
         onChange={change}
         onEdit={() => setEdit(structuredClone(c))}
-        onSetUnit={() => setEdit(structuredClone(c))}
+        units={data.units
+          .filter((u) => u.name !== UNASSIGNED_UNIT)
+          .map((u) => u.name)}
+        onSubmit={() => setSubmitCard(c)}
+        onSetUnit={(name) => {
+          const u = data.units.find(
+            (u) => u.name.toLowerCase() === name.toLowerCase(),
+          ) ?? { id: crypto.randomUUID(), name, color: data.units.length % 6 };
+          return save({
+            ...data,
+            units: data.units.some((x) => x.id === u.id)
+              ? data.units
+              : [...data.units, u],
+            items: data.items.map((x) =>
+              x.id === c.id
+                ? {
+                    ...updateAssessment(x, { unit: u.name }, 'Unit added'),
+                    unitId: u.id,
+                    deletedAt: x.deletedAt,
+                  }
+                : x,
+            ),
+          });
+        }}
         onSetDue={(due) =>
           change({
             ...updateAssessment(c, { due }, 'Due date added'),
@@ -946,8 +979,23 @@ export function Semester({
             {!active.length && (
               <div className="batch-secondary">{batchEntry}</div>
             )}
+            {active.length > 0 && (
+              <button
+                className="mobile-unit-toggle"
+                aria-expanded={showUnits}
+                onClick={() => setShowUnits(!showUnits)}
+              >
+                Units
+                {unit !== 'all'
+                  ? ` · ${data.units.find((u) => u.id === unit)?.name ?? ''}`
+                  : ''}
+              </button>
+            )}
             {active.length > 0 && tab === 'semester' && (
-              <section className="unit-summary" aria-label="Your unit summary">
+              <section
+                className={`unit-summary ${showUnits ? 'units-open' : ''}`}
+                aria-label="Your unit summary"
+              >
                 {data.units
                   .filter(
                     (u) =>
@@ -986,7 +1034,10 @@ export function Semester({
             )}
             {active.length > 0 && (
               <div className="filter-row">
-                <div className="unit-filters" aria-label="Filter by unit">
+                <div
+                  className={`unit-filters ${showUnits ? 'units-open' : ''}`}
+                  aria-label="Filter by unit"
+                >
                   <button
                     className={unit === 'all' ? 'selected' : ''}
                     onClick={() => setUnit('all')}
@@ -1408,6 +1459,51 @@ export function Semester({
               )}
             </form>
           )}
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={!!submitCard}
+        onOpenChange={(open) => {
+          if (!open) setSubmitCard(null);
+        }}
+      >
+        <DialogContent className="app-dialog">
+          <DialogTitle>Record your submission</DialogTitle>
+          <DialogDescription>
+            Marking submitted records your confirmation. It does not submit
+            files to your school.
+          </DialogDescription>
+          <p>{submitCard?.name}</p>
+          <button
+            className="primary"
+            disabled={blocked}
+            onClick={() => {
+              const current = data.items.find((c) => c.id === submitCard?.id);
+              if (
+                !current ||
+                current.deletedAt ||
+                current.status !== 'work' ||
+                current.history.length !== submitCard?.history.length
+              ) {
+                setSubmitCard(null);
+                setMessage('This card changed. Reopen it to continue.');
+                return;
+              }
+              if (
+                change({
+                  ...submit(current),
+                  unitId: current.unitId,
+                  deletedAt: null,
+                })
+              ) {
+                setSubmitCard(null);
+                setTab('submitted');
+              }
+            }}
+          >
+            Confirm submitted
+          </button>
+          <button onClick={() => setSubmitCard(null)}>Cancel</button>
         </DialogContent>
       </Dialog>
       <Dialog

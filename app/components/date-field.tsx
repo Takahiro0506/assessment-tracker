@@ -15,9 +15,11 @@ export function DateField({
   onChange,
   label = 'Due date (optional)',
   emptyLabel = 'Set date',
+  disabled = false,
 }: {
   value: string | null;
-  onChange: (v: string | null) => void;
+  onChange: (v: string | null) => void | boolean;
+  disabled?: boolean;
   label?: string;
   emptyLabel?: string;
 }) {
@@ -34,12 +36,13 @@ export function DateField({
     setOpen(true);
   }
   function save() {
+    if (disabled) return;
     const parsed = parseDateInput(text);
     if (text.trim() && !parsed) {
       setError('Enter a real date, for example 16 October 2026 or 2026-10-16.');
       return;
     }
-    onChange(parsed);
+    if (onChange(parsed) === false) return;
     calendarMonth = month;
     setOpen(false);
   }
@@ -47,6 +50,7 @@ export function DateField({
     <>
       <button
         type="button"
+        disabled={disabled}
         className={`date-button ${value ? 'has-date' : ''}`}
         aria-label={`${label}: ${value ? formatDate(value) : 'No date yet'}`}
         onClick={launch}
@@ -103,12 +107,13 @@ export function DateField({
               ? formatDateLong(parseDateInput(text))
               : 'No date yet'}
           </p>
-          <button className="primary" onClick={save}>
+          <button className="primary" disabled={disabled} onClick={save}>
             Use this date
           </button>
           <button
+            disabled={disabled}
             onClick={() => {
-              onChange(null);
+              if (disabled || onChange(null) === false) return;
               calendarMonth = month;
               setOpen(false);
             }}
