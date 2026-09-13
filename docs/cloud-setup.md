@@ -2,11 +2,11 @@
 
 ## 2026-09-13 本番配置済み（最新）
 
-本人のデプロイ承認後、実D1の空状態を再確認し、SQLバックアップ→0001マイグレーション→Workersデプロイを実施した。本番は https://assessment-tracker.t-kasuya-354582.workers.dev/ 。workers_devを有効化し、preview_urlsは無効のまま。Firebase認証はデータを保護するが、入口とアカウント登録画面は公開される。Cloudflare Accessによる限定公開は設定していない。有料プラン・課金設定は変更していない。
+本人のデプロイ承認後、実D1の空状態を再確認し、SQLバックアップ→0001マイグレーション→Workersデプロイを実施した。本番は https://app.my-assessment-tracker.workers.dev/ 。個人名を含まないaccount subdomainへ変更し、Worker名をappへ移行後、旧Workerを削除した。workers_devを有効化し、preview_urlsは無効のまま。Firebase認証はデータを保護するが、入口とアカウント登録画面は公開される。Cloudflare Accessによる限定公開は設定していない。有料プラン・課金設定は変更していない。
 
 ### 所有者に残る設定
 
-Firebase Console → Authentication → Settings → Authorized domains → Add domain に `assessment-tracker.t-kasuya-354582.workers.dev` を追加する（https://や末尾スラッシュなし）。読取APIで現時点では未登録を確認。Firebase CLIは未認証のため、管理設定の更新は行っていない。追加後に本番のメール／Googleログイン、保存、再読み込み、別端末同期を確認する。パスワードやトークンをチャットへ貼らない。
+Firebase Console → Authentication → Settings → Authorized domains → Add domain に `app.my-assessment-tracker.workers.dev` を追加する（https://や末尾スラッシュなし）。読取APIで現時点では未登録を確認。Firebase CLIは未認証のため、管理設定の更新は行っていない。追加後に本番のメール／Googleログイン、保存、再読み込み、別端末同期を確認する。パスワードやトークンをチャットへ貼らない。
 
 以下は配置前の準備手順と履歴。公開承認・migration・デプロイの待ち状態は上記で更新された。
 

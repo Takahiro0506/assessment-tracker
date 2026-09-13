@@ -2,7 +2,7 @@
 
 ## 2026-09-13 本番デプロイ
 
-- 本人の明示承認後に実施。Git 4379f2eのアプリを再ビルドし、Cloudflare Workersへ配置。Version ID: 2e313ecc-8bbb-4d95-b558-c4908d48b6ba。本番URL: https://assessment-tracker.t-kasuya-354582.workers.dev/ 。プレビューURLは無効、有料契約・課金変更なし。
+- 本人の明示承認後に実施。Git 4379f2eのアプリを再ビルドし、Cloudflare Workersへ配置。最終Version ID: 1f358505-f983-4d39-ae32-6bddff29abde。本番URL: https://app.my-assessment-tracker.workers.dev/ 。個人名を含まないaccount subdomainへ変更し、同じD1 bindingでWorker名をappへ移行。新URLの確認後、旧assessment-tracker Workerを削除した。プレビューURLは無効、有料契約・課金変更なし。
 - 配置直前の実D1は_cf_KVだけ、アプリデータなし（読取changes 0）。`/Users/takahiro/Developer/assessment-tracker-recovery/production-before-deploy-20260913/` にSQLとSHA-256 manifestを取得後、0001_workspace.sqlの5コマンド適用成功。これは同じMac上のバックアップであり、端末から独立した保管や日次運用ではない。
 - 本番トップと設定APIが200、Firebaseプロジェクト一致・configured true・emulator false。未認証のworkspace/history APIは401、署名なしトークンも401。本番ログイン画面をブラウザで確認。
 - Firebaseの公開設定読取は200。ただし本番ホストはauthorizedDomainsに未登録。Firebase CLI未ログインのため更新不可。実ユーザー登録／メール・Google認証／認証付きD1保存／実機間同期は未確認。デプロイ成功と認証後の利用検証完了は区別する。
