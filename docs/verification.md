@@ -1,5 +1,9 @@
 # 採用UI・認証・同期・復元の検証記録
 
+## 2026-09-13 GitHubアップロード
+
+本人指定の `https://github.com/Takahiro0506/assessment-tracker.git` は送信前に参照なし（空）の状態を確認。originへ登録し、`codex/assessment-record` をpush成功。以下のURL確認待ちの記録は送信前の履歴。アプリのデプロイ、実D1へのmigration、公開範囲や課金設定の変更は行っていない。
+
 ## 2026-09-13 Git共有準備と待機日数修正
 
 修正後は38件（単体18・統合10・クライアント10）、typecheck、lint、build成功。ステージしたテキストに本番設定値・代表的な秘密鍵／トークン形式が含まれないことを照合した。
