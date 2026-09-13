@@ -20,17 +20,20 @@ export function AuthScreen({
 }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [signup, setSignup] = useState(false);
+  const [signup, setSignup] = useState(true);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
+  const [details, setDetails] = useState('');
   async function run(fn: () => Promise<unknown>, success = '') {
     setBusy(true);
     setMessage('');
+    setDetails('');
     try {
       await fn();
       setMessage(success);
     } catch (e) {
       const code = (e as { code?: string }).code;
+      setDetails(code ?? 'Unknown authentication error');
       setMessage(
         code === 'auth/invalid-credential'
           ? 'Email or password was not recognised. Try again or reset your password.'
@@ -40,7 +43,13 @@ export function AuthScreen({
               ? 'Choose a stronger password (at least 6 characters).'
               : code === 'auth/popup-closed-by-user'
                 ? 'Sign-in window closed. You can try again.'
-                : 'Could not sign in. Check your connection and try again.',
+                : code === 'auth/unauthorized-domain'
+                  ? 'Google sign-in is not configured for this website yet. You can use email and password, or try again once the site has been updated.'
+                  : code === 'auth/popup-blocked'
+                    ? 'Your browser blocked the Google window. Allow pop-ups for this website and try again.'
+                    : code === 'auth/operation-not-allowed'
+                      ? 'This sign-in method is not available yet. Please try another method.'
+                      : 'Could not continue. Check your connection and try again.',
       );
     } finally {
       setBusy(false);
@@ -78,8 +87,38 @@ export function AuthScreen({
       </section>
       <section className="auth-panel">
         <Cloud size={28} />
-        <h2>{signup ? 'Make room for your semester' : 'Welcome back'}</h2>
-        <p>Your semester, together on your phone and computer.</p>
+        <div className="auth-mode" aria-label="Account access">
+          <button
+            type="button"
+            aria-pressed={signup}
+            disabled={busy}
+            onClick={() => {
+              setSignup(true);
+              setMessage('');
+              setDetails('');
+            }}
+          >
+            Create account
+          </button>
+          <button
+            type="button"
+            aria-pressed={!signup}
+            disabled={busy}
+            onClick={() => {
+              setSignup(false);
+              setMessage('');
+              setDetails('');
+            }}
+          >
+            Sign in
+          </button>
+        </div>
+        <h2>{signup ? 'Create your account' : 'Sign in to your account'}</h2>
+        <p>
+          {signup
+            ? 'New to Assessment tracker? Start here.'
+            : 'Already registered? Use the same Google account or email you used before.'}
+        </p>
         {emulator && (
           <p className="notice">
             Local test service · Use a test email and password. This does not
@@ -93,6 +132,27 @@ export function AuthScreen({
           </p>
         ) : (
           <>
+            {!emulator && (
+              <div className="google-entry">
+                <button
+                  className="wide"
+                  disabled={busy}
+                  onClick={() =>
+                    void run(() =>
+                      signInWithPopup(auth, new GoogleAuthProvider()),
+                    )
+                  }
+                >
+                  Continue with Google
+                </button>
+                <p>
+                  For new and existing accounts. No separate password needed.
+                </p>
+              </div>
+            )}
+            <p className="auth-divider">
+              Or {signup ? 'create an account' : 'sign in'} with email
+            </p>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -118,59 +178,49 @@ export function AuthScreen({
                 <input
                   type="password"
                   required
-                  minLength={6}
+                  minLength={signup ? 6 : undefined}
                   autoComplete={signup ? 'new-password' : 'current-password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
               <button className="primary" disabled={busy}>
-                {busy ? 'Please wait…' : signup ? 'Create account' : 'Sign in'}
+                {busy
+                  ? 'Please wait…'
+                  : signup
+                    ? 'Create account with email'
+                    : 'Sign in with email'}
                 <ArrowRight size={18} />
               </button>
             </form>
             <div className="auth-links">
-              <button
-                className="text-button"
-                disabled={busy}
-                onClick={() => setSignup(!signup)}
-              >
-                {signup
-                  ? 'Already have an account? Sign in'
-                  : 'New here? Create an account'}
-              </button>
-              <button
-                className="text-button"
-                disabled={busy || !email}
-                onClick={() =>
-                  void run(
-                    () => sendPasswordResetEmail(auth, email),
-                    'If this address has an account, a reset email will arrive shortly.',
-                  )
-                }
-              >
-                Reset password
-              </button>
+              {!signup && (
+                <button
+                  className="text-button"
+                  disabled={busy || !email}
+                  onClick={() =>
+                    void run(
+                      () => sendPasswordResetEmail(auth, email),
+                      'If this address has an account, a reset email will arrive shortly.',
+                    )
+                  }
+                >
+                  Reset password
+                </button>
+              )}
             </div>
-            {!emulator && (
-              <button
-                className="wide"
-                disabled={busy}
-                onClick={() =>
-                  void run(() =>
-                    signInWithPopup(auth, new GoogleAuthProvider()),
-                  )
-                }
-              >
-                Continue with Google
-              </button>
-            )}
           </>
         )}
         {message && (
           <p role="alert" className="notice">
             {message}
           </p>
+        )}
+        {details && (
+          <details className="auth-details">
+            <summary>Details</summary>
+            <p>{details}</p>
+          </details>
         )}
         <div className="sample-invite">
           <span>Want to get a feel for it?</span>

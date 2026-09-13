@@ -1,5 +1,7 @@
 # 実クラウドへの接続手順
 
+2026-09-13最新：所有者が `app.my-assessment-tracker.workers.dev` を承認済みドメインへ追加。公開設定読取APIで登録済みを確認した。以下の追加待ち・未登録は変更前の履歴。次は本人のGoogle認証完了と保存確認。
+
 ## 2026-09-13 本番配置済み（最新）
 
 本人のデプロイ承認後、実D1の空状態を再確認し、SQLバックアップ→0001マイグレーション→Workersデプロイを実施した。本番は https://app.my-assessment-tracker.workers.dev/ 。個人名を含まないaccount subdomainへ変更し、Worker名をappへ移行後、旧Workerを削除した。workers_devを有効化し、preview_urlsは無効のまま。Firebase認証はデータを保護するが、入口とアカウント登録画面は公開される。Cloudflare Accessによる限定公開は設定していない。有料プラン・課金設定は変更していない。

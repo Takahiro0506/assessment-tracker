@@ -141,9 +141,7 @@ export default function Page() {
     );
   return (
     <>
-      <header className="welcome-header">
-        Assessments<span>.</span>
-      </header>
+      <header className="welcome-header">Assessment tracker</header>
       {error && <p className="notice">{error}</p>}
       <AuthScreen
         auth={auth}

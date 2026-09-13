@@ -1,5 +1,17 @@
 # 採用UI・認証・同期・復元の検証記録
 
+## 2026-09-13 Naoさんの初見レビュー対応
+
+最終更新：修正版を本番へ配置（Version 3419377e-c444-468e-b336-7e90d17f317d）。所有者が本番ドメインを追加し、Firebase公開設定読取でauthorized trueを確認。本番画面の新名称・登録初期表示・Google説明をブラウザ確認。Googleボタン押下後は認証処理待ちになったが、ブラウザツールではポップアップを取得できず、本人の認証完了までは未検証。
+
+ユーザー報告としてGoogleで登録できない、登録とログインを区別しにくい、名称をAssessment trackerへ、iPhone SE3で左右に揺れるという4点を受領。実利用者からの定性的フィードバックであり、開発者の観察試験や支払意思の検証ではない。
+
+- Firebase公開設定の読取200、本番ホストがauthorizedDomainsに未登録と確認。添付画像ではGoogleプロバイダー有効。承認済みドメインとは別設定。Chrome管理画面の取得はScreenCaptureKitエラーで操作できず、所有者へ追加を依頼した。
+- 登録を初期選択し、Create account／Sign inを明示。Google入口をメールフォームの前に配置し、新規・既存共通／専用パスワード不要と説明。unauthorized-domain、popup-blocked等の案内とDetailsのエラーコードを追加。
+- 認証画面と学期ヘッダーの表記をAssessment trackerへ変更。スマホ科目欄とフィルターを横スクロールから縦配置・折り返しへ変更。
+- 375×667の学期画面（Units展開）、320pxの認証画面でdocument幅とviewport幅が一致。登録／サインインの切替、パスワードのautocomplete切替を確認。入力文字16pxを維持。元の375pxでもページ全体のはみ出しは再現せず、実iPhone Safariの横揺れの解消は本人の再確認が必要。
+- 自動40件（18＋10＋12）、typecheck、lint、build成功。変更前はGit 60ae080へ戻せる。未追跡のClaude outputs/は変更していない。
+
 ## 2026-09-13 本番デプロイ
 
 - 本人の明示承認後に実施。Git 4379f2eのアプリを再ビルドし、Cloudflare Workersへ配置。最終Version ID: 1f358505-f983-4d39-ae32-6bddff29abde。本番URL: https://app.my-assessment-tracker.workers.dev/ 。個人名を含まないaccount subdomainへ変更し、同じD1 bindingでWorker名をappへ移行。新URLの確認後、旧assessment-tracker Workerを削除した。プレビューURLは無効、有料契約・課金変更なし。

@@ -734,9 +734,7 @@ export function Semester({
           }}
         >
           <Layers size={30} />
-          <span>
-            Assessments<span className="brand-dot">.</span>
-          </span>
+          <span>Assessment tracker</span>
         </button>
         <nav aria-label="Main navigation">
           <button

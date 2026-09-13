@@ -4,6 +4,10 @@ TAFE/VET学生が「自分の学期を組み立てる」アセスメント管理
 
 ## 現在地（2026-09-13）
 
+最新：Naoさんのレビューに対応した修正版を本番へ配置済み。所有者がFirebaseに本番ホストを追加し、読取APIでauthorizedDomainsへの登録を確認した。以下のドメイン追加待ちの記述は変更前の記録。Google認証の本人操作による完了・iPhone実機再確認は残る。
+
+Naoさんの初見レビューを反映：ブランド表記をAssessment trackerに統一し、新規登録を初期表示、Create account／Sign inの切替を明示。Googleは新規・既存共通の入口と説明を追加した。スマホの科目欄を縦並び・折り返しへ変更。375px／320pxで横はみ出しなしを確認したが、iPhone実機での再確認は未実施。Google認証は本番ホストのFirebase承認済みドメイン追加待ち。
+
 ### 本番デプロイ済み（最新）
 
 本人の本番デプロイ承認により、Cloudflare Workersへ配置済み：[本番アプリ](https://app.my-assessment-tracker.workers.dev/)。個人名を含まないaccount subdomainへ変更し、Worker名をappへ移行後、旧Workerを削除した。実D1の事前SQLバックアップと0001マイグレーションが成功。入口・登録画面は公開、課題データはFirebase認証で利用者ごとに分離する。有料プランへの変更なし。
