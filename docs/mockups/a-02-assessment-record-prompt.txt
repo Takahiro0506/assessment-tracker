@@ -1,0 +1,61 @@
+Use case: ui-mockup / redesign using an attached reference.
+The attached image is a CONCEPT REFERENCE, not a layout to copy. Create a new refined, cohesive desktop web app mockup that incorporates the useful ideas: assessment lifecycle on cards, visible submission history including previous rounds, waiting-for-result duration, and unit-specific counts of user-entered assessments. The product is specifically for student ASSESSMENT RECORDS, with deadlines, submissions, results and resubmissions. It should feel recognizably purpose-built, not a generic project-management kanban board.
+
+Produce ONE landscape high-resolution image, ideally 3840x2560 (3:2). A complete realistic app screen, not a slide with explanatory Japanese paragraphs. All app text English. No fake browser hardware. Warm ivory #F8F7F3, dark ink #26352F, deep eucalyptus #285B4A primary controls, small muted unit-color accents in lavender, sage and pale terracotta. Refined editorial serif main title and clean highly readable sans-serif text. Fine borders, restrained rounded white surfaces, rigorous alignment and whitespace. Unique signature motif: a slim "submission trail" with dated connected dots and visibly separate previous/current rounds inside an expanded assessment record. Muted past round, crisp active round. No notebook rules, handwriting, folded sticky notes, slogans, hearts, mascot, trophies, XP, price badges, robot/AI or institutional branding. No generic percentage complete, progress toward passing, calendar heatmaps or unlabeled green charts.
+
+HEADER:
+Small wordmark "Assessments", nav "Semester" active and "Submissions", gear settings. H1 "My semester". Date directly below "Friday 16 October 2026". Subtitle "8 assessments you added". Small understated note "Your records, from first deadline to final result." This is functional framing, not a marketing pitch.
+
+ROW OF 3 compact unit summary tiles below heading:
+Database — 3 assessments — mini separate state segments (one work, one waiting, one completed), text "1 to do · 1 waiting · 1 completed"
+Web Development — 3 assessments — 3 small state segments (two work, one waiting), text "2 to do · 1 waiting"
+Networking — 2 assessments — 2 segments (one waiting, one completed), text "1 waiting · 1 completed"
+Small shared footer to unit tiles: "Counts reflect only the assessments you added." No percentage, no pass/fail claims and no assumption of known official total.
+
+MAIN CONTENT two columns about 55% left and 45% right.
+
+LEFT COLUMN:
+heading "To work on" with small count 3, quiet link "Month view". This must preserve deadline overview and Overdue visibly first.
+A restrained pale-red strip "OVERDUE" above compact white task record:
+title "SQL exercises", Database pill, "8 Oct · 8 days overdue".
+Short compact submission-trail summary "Added 28 Sept → Not submitted". Small clear "Mark submitted" text button and "History" link, not huge repeated green buttons. Do not put all historical steps expanded on every card.
+
+Below section label "COMING UP".
+A larger expanded signature assessment card, "Responsive website", Web Development pill, coral small label "Resubmission · Round 2", due "23 Oct 2026 · in 7 days". The card has its OWN readable history, not a generic task checklist.
+Within the same card, two clearly separated horizontal tracks:
+"ROUND 1" muted background:
+"Due 10 Sept" → "Submitted 12 Sept" → "Resubmission requested 20 Sept"
+"ROUND 2" crisp:
+"Reopened 20 Sept" → "Not submitted" → "Result pending submission"
+Round 1 must preserve the prior deadline and submission date. Show nodes consistently, past events filled, future events outlined. Do not imply any automatically received school result. One strong green "Mark submitted" button applies to round 2 only. A subtle "View full history" text link.
+These tracks should be flat, calm and well-spaced, not carnival railroad lines or confusing flowcharts.
+
+Below section label "NO DATE YET".
+A compact white card "Project proposal", Web Development pill, directly on-card "+ Due date" chip and a small pencil. One quiet additional tiny entry hint adjacent to bottom composer: "Unit and date can come later." (Don't add a ninth card.)
+
+RIGHT COLUMN:
+heading "Waiting on results" count 3; small right label "Longest waiting first".
+Three comfortable rows with compact mini-trail drawn as a fine line from a filled Submitted dot to an open Result dot. This line is a state connection, NEVER proportional to elapsed time. All rows have the same length of connecting line. No growing duration bar, countdown, expected result date, overdue-result alert or red urgency.
+row 1 "Data modelling", Database pill, "Submitted 6 Oct", small muted "Previous due date: 5 Oct", right aligned warm amber pill "10 days waiting".
+row 2 "Accessibility report", Web Development pill, "Submitted 12 Oct", right "4 days waiting".
+row 3 "Practical demonstration", Networking pill, "Submitted 15 Oct", right "1 day waiting".
+Each row has a subtle action "Record result" and a history/detail icon. Treat this as the student recording a known outcome; no contacting school.
+Below the rows an OPEN small anchored outcome popover for Data modelling, title "What was the outcome?", two simple buttons "Completed" and "Needs resubmission". Small caption "Record what your teacher told you." No pass/fail grade inference. The popover must not cover the listed 3 rows; position it in available whitespace directly below them, connected by a subtle pointer.
+
+Lower-right panel, heading "Completed" count 2, compact and visually quiet (not inaccessible low contrast):
+"SQL joins" · Database · "Completed 9 Oct"
+"Network practical" · Networking · "Completed 2 Oct"
+Each has a "History" link. Display a tiny static fully connected three-dot trail as a recognition motif. No "took 24 days" performance comparison.
+
+BOTTOM:
+One restrained persistent composer "Add an assessment…" plus green Add button, and subtle secondary link "Add several at once".
+A small legible disclosure beneath:
+"Marking submitted records your confirmation. It does not submit files to your school."
+Do not show sync/backup/version controls outside Settings, but don't create false saved indicators.
+
+The 8 assessments are exactly:
+Database: SQL exercises (work overdue), Data modelling (waiting), SQL joins (completed).
+Web Development: Responsive website (round 2 work), Project proposal (work undated), Accessibility report (waiting).
+Networking: Practical demonstration (waiting), Network practical (completed).
+Ensure the unit summary counts match these records. Do not add extra tasks or invent additional grades.
+This mockup is an example of visible everyday work plus one expanded record. On larger workloads only selected cards expand their full history. Let the specialized submission/feedback/resubmission loop be the differentiating design, with calm clarity and low initial input friction.

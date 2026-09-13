@@ -1,0 +1,38 @@
+// Local preparation only. Review access before enabling any route or deploying.
+// Copy to Git-ignored wrangler.production.json and replace the placeholders.
+{
+  "name": "assessment-tracker",
+  "main": "dist/server/index.js",
+  "no_bundle": true,
+  "compatibility_date": "2026-09-08",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": "dist/client"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "assessment-tracker",
+      "database_id": "REPLACE_WITH_REAL_D1_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "FIREBASE_PROJECT_ID": "REPLACE_WITH_PROJECT_ID",
+    "FIREBASE_API_KEY": "REPLACE_WITH_WEB_API_KEY",
+    "FIREBASE_AUTH_DOMAIN": "REPLACE_WITH_PROJECT_ID.firebaseapp.com"
+  },
+  "workers_dev": false,
+  "preview_urls": false,
+  "rules": [
+    {
+      "type": "ESModule",
+      "globs": [
+        "**/*.js",
+        "**/*.mjs"
+      ]
+    }
+  ]
+}

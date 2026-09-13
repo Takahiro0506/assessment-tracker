@@ -1,27 +1,75 @@
 # Assessment Tracker
 
-TAFE/VET学生向けのアセスメント管理Webアプリ。目的はAIを使って開発し、自分の商品から少額でも利益を得る経験をすること。アプリ内AIは使用しない。
+TAFE/VET学生が「自分の学期を組み立てる」アセスメント管理Webアプリ。AIを使って学生向けの商品を開発し、小さな利益につながるか検証する。アプリ内AI・課金機能は含めない。
 
-## 現在地
+## 現在地（2026-09-12）
 
-2026-09-08：専用の開発フォルダを作成し、企画とモックを引き継いだ。アプリ本体は未実装。GitHubへのpush、公開、課金サービス接続は未実施。
+2026-09-13：Gitへのアップロードは本人承認済み。送信先リモートは未設定でURL確認待ち。設定例 `.env.example` を共有対象に含め、本番設定・端末データは除外する。結果待ち日数は端末のカレンダー日付で計算し、日付境界と夏時間をテストした。
 
-このフォルダを開発の正本とする。以前のChatGPTプロジェクトルームの同期資料は参照元として残している。
+2026-09-13追記：採用方向を継続し、読みやすさを調整。カードの日付・操作は16px、提出記録と補助情報は14pxを基準にし、狭い画面では列数と折り返しで対応する。
 
-## 読む順序
+B案の安全なデータ基盤を維持したまま、採用済みA-02（PC）／A-03（スマホ）の提出記録中心UIを同じ `app/` に実装。アイボリー・深緑・控えめな科目カラーの英語UIで、名前だけの追加、4つの期限区分、提出・結果待ち・完了・再提出、ごみ箱・履歴・バックアップを扱う。
 
-1. [最新の仕様と未決事項](docs/product-brief.md)
-2. [次に行う作業](docs/tasks.md)
-3. [デスクトップ・モバイルのモック](docs/mockups/assessment-desktop-mobile-v1.png)
+**Firebase Authentication＋Cloudflare Workers/D1を採用。認証・同期API・競合検出・復元を実装し、ローカル認証エミュレーターとD1で検証済み。採用UI反映後の自動テスト37件・型チェック・lint・ビルドが成功。本人のFirebase／D1作成は完了報告済み。本番設定ファイルはGit除外を確認済みで、Cloudflare CLI認証と実D1の読取接続も再確認した。実D1のアプリ用テーブルは0件のままで、migration・デプロイ・実機間確認は未実施。** ブラウザ保存だけを完成形としない。一般公開、有料契約、GitHub pushは行っていない。価格・需要・支払意思は未検証。
 
-モックは画像生成による見た目の参考であり、動作する画面や確定仕様ではない。
+- [構成比較・無料枠・採用理由](docs/cloud-architecture.md)
+- [外部アカウント設定と接続手順](docs/cloud-setup.md)
+- [バックアップ・復元の運用手順](docs/recovery-runbook.md)
+- [最新仕様](docs/product-brief.md)、[作業状況](docs/tasks.md)、[検証記録](docs/verification.md)
+- [B案の元モックと解釈](docs/mockups/b-design-review.md)
 
-## 開発環境
+## ローカル起動
 
-技術構成と起動・テスト用コマンドはアプリ実装時に決定する。現時点で起動できるアプリはない。
+Node.js 22.13以上、npm。アプリはReact・TypeScript・Vinext/Vite。各コマンドは `app/` で実行する。
 
-## 別のタスクへの引き継ぎ
+```sh
+cd /Users/takahiro/Developer/assessment-tracker/app
+npm ci
+npm run db:local
+npm run emulators
+```
 
-このフォルダをCodexのローカルプロジェクトとして選択し、次のように依頼する：
+もう一つのターミナルで：
 
-> README.md、AGENTS.md、docs/product-brief.md、docs/tasks.mdを読み、モックを確認して、アセスメント管理Webアプリの操作試作をローカル実装してください。まず入力・状態更新・状況把握・ブラウザ内保存を完成させ、ブラウザで確認してください。アプリ内AIは不要です。価格・有料機能は未決定です。
+```sh
+cd /Users/takahiro/Developer/assessment-tracker/app
+npm run dev:local
+```
+
+[ローカル画面](http://localhost:3001/) を開く。`Create account` から架空のメールアドレスとテスト専用パスワードで登録する。データはローカルD1、認証はlocalhost:9099のFirebaseエミュレーター。画面に **Local test service** と表示する。実クラウドには送らない。エミュレーターは通常終了時に `.emulator-data/` へアカウントを保存する。端末間の実運用には [接続手順](docs/cloud-setup.md) が必要。
+
+`npm run dev` は実Firebase設定を読む開発起動。未設定ならサンプルのみ利用可能。`.env.example` を参考に `.dev.vars` を設定する。`dev:local` と通常起動を混同しない。
+
+## 試し方
+
+1. 一覧の入力欄に課題名を入力しEnter（スマホではAddボタン）で追加。科目・締切は後からカード編集で設定する。空一覧の `Explore a sample semester` は1クリックで見本を開き、自分のデータには触れない。
+2. まとめて入力する場合は `Add several at once` → 科目を一度入力 → `Another assessment`。Assessment 1などの初期値は編集可能。期限は任意。日付のカレンダー／直接入力と読み返し表示は維持。
+3. `Save … assessments` でまとめて保存。下書きは端末・アカウントごとに保全し、戻る・再読み込み後も `Resume a saved draft` から再開できる。科目選択を変えると編集中カードの所属を変える。
+4. `My semester` は月別／科目別。Next upで直近の作業を示し、今日締切と超過日数を明示。期限超過と期限未定は独立表示。月数やカード数をモックに合わせて省略しない。
+5. `Mark submitted` → `Submitted` → `Mark completed` または `Needs resubmission`。学校への提出操作ではなく、自分の提出記録。以前の期限・提出日時・訂正内容をHistoryに残す。完了は `Undo completion` で戻せる。
+6. 編集画面から `Move to trash`。Settings → `Trash` から履歴ごと戻す。完全削除・自動消去は実装していない。
+7. Settingsの `Export backup` で別コピーを保管。`Backup & recovery` は旧localStorageデータ／JSONの内容を検証し、追加・スキップ・復旧コピーの件数を確認して取り込む。現在のデータを丸ごと置き換えない。
+8. 同じアカウントの別画面には、表示中30秒ごと／タブ復帰時に反映。確認済みの保存のみSavedを4秒表示。未保存や失敗は解決まで表示する。競合は両方をダウンロードでき、`Keep both versions` で異なるカードを復旧コピーとして残せる。
+
+保存待ちは1操作ずつ。通信切断時は未同期コピーを保全し、再接続で再送する。その間の追加保存は止める（編集中の下書きは保持）。再読み込み後は同じアカウントで `Resume sync`。完全なオフライン起動やバックグラウンド同期は未対応。
+
+## 検証コマンド
+
+```sh
+npm test
+npm run test:integration
+npm run test:client
+npm run typecheck
+npm run lint
+npm run build
+```
+
+統合テストは独立した一時D1を使い、開発データを変更しない。画面側の通信失敗・容量不足はJSDOMで検証する。ブラウザ目視の範囲と実クラウド未検証項目は [検証記録](docs/verification.md) を参照。
+
+## 再設計前の保全
+
+2026-09-10 21:56時点の追跡・未追跡ファイル126件を、リポジトリ外の `/Users/takahiro/Developer/assessment-tracker-recovery/20260910-215651/` に退避済み。`before-b.tar.gz`、各ファイルのSHA-256 manifest、Git差分とstatusを保存し、全ファイルを照合した。依存パッケージ・ビルド生成物・Git内部は除外。復元は空の別フォルダへ展開して比較し、現行作業へ直接上書きしない。`Claude outputs/` と元のモック画像は変更していない。
+
+## 初見評価
+
+2026-09-12の第三者レビューをもとに、最初の入力・見本・締切表示・設定への整理を実施。アカウント不要モードは初見評価後に判断する。[説明なしで試す記録用紙](docs/first-use-evaluation.md)を使用する。

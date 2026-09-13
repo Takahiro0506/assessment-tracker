@@ -1,0 +1,45 @@
+Use case: ui-mockup. Generate ONE high-fidelity, high-resolution desktop web app mockup for the user-approved design direction "A", showing a stressful semester with EXACTLY 24 assessments, all visible, plus a directly opened inline date picker. Landscape wide composition ideally 3840x2160. This is a practical density and interaction review, not a marketing board. No mobile phones, no physical hardware, no split concepts.
+
+VISUAL SYSTEM: refined, calm, mature student productivity app, warm ivory canvas #F8F7F3, charcoal text, deep eucalyptus primary action, white aligned task cards with very thin gray borders, subtle corner rounding. Modest elegant serif for "My semester"; legible crisp sans-serif everywhere else. Small muted sage/lavender/apricot/slate unit pills and thin colored left borders provide warmth. NO handwriting, paper ruling, folded corners, tilted cards, doodles, slogans, hearts, sticky-note effects, ornamental shadows, gamification, prices, AI or chatbot. Everything aligned. Premium via spacing and readable hierarchy.
+
+COMPOSITION: a complete browserless app interface. A slim top bar with "Assessments" on left, "Semester" active and "Submitted" next to it, gear at far right. Main heading "My semester", directly below a clear date "Friday 16 October 2026" and subtle text "24 assessments". A compact pale sage NEXT UP band reads "SQL exercises · 8 days overdue" with clear text action "View assessment". The next-up selects the oldest overdue item, not today. Then a primary MAIN BOARD with FOUR equally sized vertical columns in this exact order: "Overdue 6", "Today 6", "Coming up 6", "No date yet 6". Each contains EXACTLY SIX clearly separate task cards, so 24 visible total. Number-free cards; no hidden cards, pagination, truncated placeholders, or "+ more". The Overdue column uses a restrained pale red heading and red due text, visually first. The Today column has a subtle green heading. Remaining columns are quieter. Ensure all text fits, legible at high resolution.
+
+Each task card: title, small colored unit pill OR "+ Unit" outlined slot when specified, deadline text OR "+ Due date" outlined button, tiny pencil or ellipsis to access secondary actions. Compact and functional. On today's first card only show a dark-green "Mark submitted" button as the strongest action. On remaining today cards show subdued text "Mark submitted" to avoid a wall of large green buttons. Upcoming and undated cards have no large action buttons, only small detail icons. All titles are distinct and all 24 MUST be present exactly as listed.
+
+OVERDUE six cards (display both absolute date and relative overdue wording):
+1 SQL exercises — Database — "8 Oct · 8 days overdue"
+2 Network diagram — Networking — "9 Oct · 7 days overdue"
+3 Website critique — Web Development — "12 Oct · 4 days overdue"
+4 Safety quiz — Workplace Skills — "13 Oct · 3 days overdue"
+5 Data modelling — Database — "14 Oct · 2 days overdue"
+6 Project brief — Project Management — "15 Oct · 1 day overdue"
+
+TODAY six cards, each marked "Due today":
+1 Responsive website — Web Development
+2 Practical demonstration — Networking
+3 Research summary — Project Management
+4 SQL joins — Database
+5 Team reflection — Workplace Skills
+6 Accessibility check — Web Development
+
+COMING UP six cards (keep years clear for future year):
+1 Assessment 2 — Database — "30 Oct 2026"
+2 Network practical — Networking — "6 Nov 2026"
+3 Project report — Project Management — "20 Nov 2026"
+4 Portfolio review — Web Development — "4 Dec 2026"
+5 Final demonstration — Networking — "18 Dec 2026"
+6 Research presentation — Project Management — "15 Jan 2027"
+
+NO DATE YET six cards:
+1 Project proposal — Project Management — "+ Due date"
+2 Assessment 3 — Database — "+ Due date"
+3 Group presentation — "+ Unit" — "+ Due date"
+4 Case study — Workplace Skills — "+ Due date"
+5 Portfolio reflection — "+ Unit" — "+ Due date"
+6 Final review — "+ Unit" — "+ Due date"
+
+On the right-hand side of the complete board reserve a small dedicated interaction gutter. Show a POPOVER anchored with a small neat line to the "+ Due date" chip on the top undated card "Project proposal". This is an overlay anchored to the card, NOT a bottom sheet, NOT a permanent sidebar, NOT an extra menu. Its content is IMMEDIATELY the date picker: header "Due date" and close X, direct date text input "16 October 2026", full MONTH calendar "October 2026" with Monday-first weekdays and correct dates (October 1 is Thursday, October 16 Friday). Friday 16 selected. Below full readback "Friday 16 October 2026", green "Use this date" and subtle "Leave unset". No Today/Tomorrow/Choose a date intermediate menu. The popover should NOT cover any of the 24 task cards; the extra gutter makes the interaction visible for this review. No other visible UI labels in that gutter.
+
+At the bottom, a restrained fixed composer spanning the main board: "Add an assessment…" with green plus Add button; quiet secondary "Add several at once". Keep this visible and never cover the last task row. No sync/version/backup words on the ordinary view; settings gear is enough. No charts or percentages. No claim that marking submitted uploads to school.
+
+Outside the app, at most one tiny top-left editorial label "A · 24-assessment review". Do not add explanatory prose around the mockup. Prioritize accurate count, distinct titles, all four groups, humane date input, and readability over decorative styling.

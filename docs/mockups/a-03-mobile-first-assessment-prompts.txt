@@ -1,0 +1,36 @@
+INITIAL GENERATION
+
+Use case: ui-mockup.
+Create a polished, highly legible MOBILE adaptation of the attached assessment-record desktop UI. Reference image is visual/style reference, not an edit target. Produce one landscape presentation board with FOUR large, flat smartphone viewports side by side, approximately 390px logical width each, enough height for real readable mobile content. Render at high resolution, aim 2400x1500. No device perspective, no photographs, no decorative doodles, no marketing slogan. Small restrained labels ABOVE the screens: "01 · First assessment", "02 · Added", "03 · Semester", "04 · Submissions". All UI English only. Preserve refined ivory background, deep forest teal, white cards, serif page headings and sans-serif readable body, fine borders, consistent small muted unit pills. Calm, professional paid-quality utility, no sticky notes or gamification badges.
+
+Concept: the student starts with a name only. An assessment becomes a lasting record of submission, waiting for a result and any resubmission. Do not overload the initial card with empty history tracks. These are POST-SIGN-IN screens; do not introduce guest mode, account prompts or claims about cloud saving. Bottom navigation consistently only "Semester" and "Submissions" with understandable icons and generous touch targets. Top small "Assessments" brand and gear Settings icon. Sticky bottom controls stay above safe area, content scrolls vertically. No horizontal card carousels.
+
+SCREEN 01: empty signed-in My semester.
+Heading "My semester", date "Friday 16 October 2026".
+In upper middle one straightforward white input region: heading "Add your first assessment". Label "Assessment name". Text field placeholder "e.g. SQL exercises" and ONE clear teal "Add" button. Helper "Unit and due date can come later." Below a calm text link "Explore a sample semester". Below it secondary text link "Add several at once". Ample quiet space, no blank dashboard sections, no counts, no illustrations, no progress trackers. Input itself is visible without opening a modal. No separate Save.
+Bottom tabs Semester active, Submissions inactive.
+
+SCREEN 02: exact next state after adding "SQL exercises" from screen01, no date or unit assigned. Same title/date. Only section "No date yet". One elegant white card "SQL exercises", TWO individually tappable outlined in-card slots "+ Unit" and "+ Due date". Fine lower line "Added 16 Oct" and subtle "View record". No compulsory wizard and no message insisting user complete these fields. No false Due today or completed checkmark. Lower part intentionally quiet. At bottom above tabs a single compact persistent composer with input placeholder "Add an assessment..." and one "Add" button; small link "Add several at once". Same Semester active tabs.
+
+SCREEN 03: populated ordinary semester state, preserve FOUR date sections in this exact order, each with one compact card, all four section titles readable in the viewport. Title "My semester", date "Friday 16 October 2026". Quiet Next up strip "Next up · SQL exercises · 8 days overdue". Small secondary links "Units" and "Month view" under it, no broad unit dashboard pushing cards down.
+Overdue: card SQL exercises, lavender Database pill, "Due 8 Oct · 8 days overdue" in restrained red, secondary text link "Mark submitted" + overflow.
+Today: card Network practical, muted peach Networking pill, "Due today · 16 Oct" and main teal "Mark submitted" button.
+Coming up: card Responsive website, sage Web Development pill, small "Resubmission · Round 2" status, "Due 23 Oct · in 7 days", "Previous submission: 12 Sept" and "View record" text link. No full expanded timelines in list.
+No date yet: compact card Project proposal, sage Web Development pill, "+ Due date" outlined slot.
+Sticky name input "Add an assessment..." with Add above tabs, enough padding so last card not obscured. Primary button only on today; other actions accessible via text/overflow.
+Use compact real-world cards; do not cram tiny text or shrink to illegible sizes. This is a scrollable mobile app viewport, NOT all 24 assessments compressed. Four representative cards fit using spare typography.
+
+SCREEN 04: Submissions tab active.
+Heading "Submissions", date "Friday 16 October 2026".
+Section heading "Waiting on results · 2", small "Longest waiting first".
+First card Data modelling, lavender Database pill, amber "10 days waiting", "Submitted 6 Oct". Two equal-length status nodes linked by thin line, "Submitted" filled dot with "6 Oct", "Result" hollow dot with "Waiting". No elapsed-duration progress bar. Outlined "Record result" button, subtle "View record".
+Second card Accessibility report, sage Web Development pill, "4 days waiting", "Submitted 12 Oct", compact "Record result" and "View record" text links.
+Section "Completed · 1", one subdued white card "SQL joins", lavender Database pill, "Completed 9 Oct". Compact three dated milestones Added 20 Sept / Submitted 5 Oct / Result 9 Oct, clear small labels; View record.
+Under cards honest readable note: "Marking submitted here records your confirmation. It does not submit files to your school."
+Bottom tabs Semester inactive, Submissions active. No duplicated add composer needed in this view.
+
+Cross-screen safeguards: settings gear holds recovery features; no raw sync/version language, no fabricated save success. No school logos, grades or pass percentages, no AI, pricing or login redesign. Unit/date slots are OPTIONAL and visible directly on card. Preserve all prior records when resubmission occurs. Avoid handwritten text, hollow congratulatory slogans, ruled paper, shadows over text. Make mobile composition balanced and credible, recognizably the same product as reference.
+
+TARGETED CORRECTION
+
+Edit this mobile UI mockup with a SINGLE small correction. Preserve the four phone screens, all typography, colors, spacing, labels and other content exactly. In the SECOND phone only (heading above it "02 · Added"), the SQL exercises card has a purple "Database" pill between its title and the + Unit / + Due date buttons. REMOVE that Database pill entirely and leave that area as clean white card background. This card has no unit yet, because only its name was entered. Keep both "+ Unit" and "+ Due date" buttons intact and in the same positions. Do not change any Database pill in the THIRD or FOURTH phones. Do not add any other text, labels, units, artwork or changes.

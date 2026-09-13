@@ -1,0 +1,28 @@
+Use case: ui-mockup.
+Create ONE high-fidelity design concept board for an assessment management app intended to be credible as a modestly paid student productivity product. Landscape 3:2, 1536x1024 or higher. Three large equally sized mobile app screen panels side by side, perfectly front-facing, no phone hardware or perspective. Beautiful precise and legible typography, realistic web UI, excellent spacing and visual hierarchy.
+
+Concept: "A clear semester". Preserve the approachable sticky-note board interaction (name a task, give it an optional date, see it in a time-based place), but reimagine it as a refined quiet editorial productivity tool. NO paper illusion, torn edges, folded corners, sticky-note texture, tilted cards, tape, doodles, handwriting, handwritten explanations, motivational slogans, mascots or cute decorations. No glossy gold, luxurious black, neon, gamified rewards or enterprise dashboard clutter. Premium through restraint and consistency, NOT ornament. All surfaces level and aligned. Warm off-white #F8F7F3, ink charcoal #26352F, deep eucalyptus green #285B4A for primary actions, hairline warm-gray borders, muted sage and restrained dusty-lavender small unit labels. Very subtle shadows only where elevation communicates an overlay. 12px corner radii, ample whitespace, precise 8-point spacing. Elegant modest serif for page titles, exceptionally clear neutral sans-serif body and controls. Main text large enough to comfortably read. Date indicators clear and calm, not decorative stamps. Do not add billing UI, prices, AI, chat or new features.
+
+Outside panel UI, top-left board title "A clear semester"; modest subtitle "A calmer board, built for everyday use". Above three screens small clean uppercase labels "01 / START", "02 / ADD DETAILS", "03 / YOUR DAY". No other explanatory annotations, handwritten notes, outside arrows, bottom captions or claims about quality. Keep each screen large and dominant, not a promotional landing page.
+
+SCREEN 1: initial empty signed-in app.
+Top row restrained small wordmark "Assessments" left, gear icon right. H1 "My semester". One plain sentence "Start with one assessment."
+A single clean input block, on white against warm background, with small label "Assessment name", spacious text field placeholder "e.g. SQL exercises", integrated but separate solid eucalyptus "Add" button. No paper texture, no giant fake card. Below input tiny legible text "Unit and due date are optional."
+Below generous but not excessive space, unobtrusive link "View a sample semester".
+At bottom, a two-item navigation bar with small clean outline icons and labels "Semester" active and "Submitted". The first action must be instantly obvious; no stats, unit selector, onboarding wizard or Save button.
+
+SCREEN 2: the same assessment just added.
+Same header and H1. A clean white task tile bordered with a hairline rule, title "SQL exercises"; small pencil icon at right. Under title two restrained outlined tappable chips "+ Unit" and "+ Due date". No Added sticker or badge.
+Below, an open compact bottom sheet titled "Due date" in sans-serif with a close X and a light dividing line. A full-width direct-entry date field "2026-10-16"; a compact date selector for October 2026 showing weekday labels and the week 12 through 18, with Friday 16 selected in solid eucalyptus. Below, full explicit readback "Friday 16 October 2026". Two clear actions: primary "Use this date", secondary text "Leave unset". This is an optional detail action, not a mandatory flow. The tile title must remain visible above the sheet. No pointers or instructional arrows.
+
+SCREEN 3: later working semester with a few example entries.
+Same header and heading "My semester". Small subtitle "Friday 16 October".
+A prominent but restrained focus line: small uppercase "NEXT UP" then "SQL exercises · Due today". It should look like a clear answer rather than a dashboard metric or huge duplicate card.
+Below, heading "Today" with a thin horizontal dividing line. A clean rectangular white task tile "SQL exercises", small sage unit pill "Database", small plain deadline text "Due today". Full-width or comfortably sized green action "Mark submitted" beneath. Tile sharp and elegant with gentle radius, no paper effect.
+Below, heading "Coming up" and one compact white row: "Website review", small dusty lavender unit label "Web Development", right-side date "19 Oct".
+Below, heading "No date yet" and one compact white row "Project proposal" with small "+ Due date" action at right.
+Persistent compact composer above bottom navigation: placeholder "Add an assessment…" and green plus button.
+Bottom navigation "Semester" active and "Submitted".
+All three task sections should fit and be comfortably readable. Their spacing establishes hierarchy. Avoid extra metrics, completion percentages, decorative graphs, random buttons or empty lanes.
+
+Use clear English text only. No Japanese. No technical sync, revision or backup terms on the normal screens. Settings remains accessible via gear. Do not imply the app sends assignments to a school. This is an exploratory static mockup; prioritize believable, implementable, clean interactions over ornate visual design. All three panels must share exactly the same design system.

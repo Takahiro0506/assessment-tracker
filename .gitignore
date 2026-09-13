@@ -10,3 +10,14 @@ coverage/
 .vercel/
 playwright-report/
 test-results/
+
+# Local assessment backups and generated compiler cache
+assessment-tracker-*.json
+*.tsbuildinfo
+
+# Private local service data and backups
+.dev.vars*
+.firebase/
+.local-backups/
+.emulator-data/
+wrangler.production.json
